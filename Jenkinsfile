@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jyotsnavish/jenkins-terraform.git']])
+                checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/jyotsnavish/jenkins-terraform.git']])
             }
         }
         stage('Terraform init') {
@@ -14,8 +14,9 @@ pipeline {
         }
         stage('Terraform action') {
             steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve')
+                echo "Terraform action is --> apply"
+                #sh ('terraform ${action} --auto-approve')
+                sh ('terraform apply --auto-approve')
             }
         }
     }
